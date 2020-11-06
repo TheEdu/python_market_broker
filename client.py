@@ -16,6 +16,9 @@ sio = socketio.Client()
 
 @sio.event
 def connect():
+    """
+        Start a Suscription to every market_product room
+    """
     print('connected')
     for subscription in subscriptions:
         sio.emit('start_subscription', {
@@ -39,6 +42,7 @@ def disconnect():
         })
 
 
+""" Get subscriptions, before establish a connection """
 parser = argparse.ArgumentParser(
     description='Ingresar Lista de Mercado,Producto')
 parser.add_argument('--list', metavar='N', type=market_product_format, nargs='+',

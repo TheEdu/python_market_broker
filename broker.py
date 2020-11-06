@@ -6,6 +6,7 @@ app = socketio.WSGIApp(sio)
 
 
 # Store the prices of the market´s products in memory
+# Initial State
 tempo_store = {
     'market_1': {
         'product_1': '123'
@@ -29,12 +30,16 @@ def disconnect(sid):
 
 @sio.event
 def start_subscription(sid, data):
+    """
+        Join the client to the market_product room
+    """
     print('sid ', sid, ' - data ', data)
     market = data['market']
     product = data['product']
     room = market + '_' + product
     sio.enter_room(sid, room)
 
+    # If there is a price (in memory) for the product, then return the price to the client
     if market in tempo_store:
         if product in tempo_store[market]:
             sio.emit('on_price', {
@@ -46,13 +51,16 @@ def start_subscription(sid, data):
 
 @sio.event
 def publish_price(sid, data):
+    """
+        Publish Prices to the market_product room
+    """
     market = data['market']
     product = data['product']
     price = data['price']
 
     room = market + '_' + product
 
-    # Update or Create in memory Store
+    # Update or Create Price (in memory)
     tempo_store[market][product] = price
 
     sio.emit('on_price', {
