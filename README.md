@@ -14,7 +14,10 @@ Para resolver el ejercicio se utilizo
 
 ## Getting Started
 
-1. mkvirtualenv markets && pip install -r requirements.txt
+1. Create a virtualenv and Install the requirements of the project
+	
+	``` mkvirtualenv markets && pip install -r requirements.txt ```
+
 2. In a new console, activate the virtualenv and run the message broker
 
     ```
@@ -36,5 +39,5 @@ Para resolver el ejercicio se utilizo
     ```
     cd path/to/broker.py
     workon markets
-    python market.py --name market_2 --list product_1,123 product_2,456
+    python market.py --name market_2 --list product_1,77 product_2,89
     ```
